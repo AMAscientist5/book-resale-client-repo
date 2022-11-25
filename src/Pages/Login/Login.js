@@ -17,6 +17,21 @@ const Login = () => {
 
   const from = location.state?.from?.pathname || "/";
 
+  const handleLogin = (data) => {
+    console.log(data);
+    setLoginError("");
+    signIn(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setLoginError(error.message);
+      });
+  };
+
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="card w-full max-w-sm shadow-2xl bg-base-100">
