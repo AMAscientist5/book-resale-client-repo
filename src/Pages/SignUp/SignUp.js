@@ -1,17 +1,85 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import "./SignUp.css";
+import React, { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
+
 const SignUp = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const { createUser } = useContext(AuthContext);
+  const [signUpError, setSignUPError] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleSignUp = (data) => {
+    setSignUPError("");
+    createUser(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        toast("User Created Successfully.");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        setSignUPError(error.message);
+      });
+  };
+
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="card w-full max-w-sm shadow-2xl bg-base-100">
         <h4 className="border-bottom border-b-8 pb-2 w-24 mx-auto mt-6">
           Sign Up
         </h4>
-        <form className="card-body mt-2">
-          <input type="text" name="name" placeholder="name" className="" />
-          <input type="email" placeholder="email" className="" />
-          <input type="password" placeholder="password" className="" />
+        <form onSubmit={handleSubmit(handleSignUp)} className="card-body mt-2">
+          <input
+            {...register("name", {
+              required: "Name is Required",
+            })}
+            type="text"
+            name="name"
+            placeholder="name"
+            className=""
+          />
+          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+          <input
+            {...register("email", {
+              required: true,
+            })}
+            type="email"
+            placeholder="email"
+            className=""
+          />
+          {errors.email && (
+            <p className="text-red-500">{errors.email.message}</p>
+          )}
+          <input
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 6,
+                message: "Password must be 6 characters long",
+              },
+              pattern: {
+                value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/,
+                message:
+                  "Password must have uppercase, number and special characters",
+              },
+            })}
+            type="password"
+            placeholder="password"
+            className=""
+          />
+          {errors.password && (
+            <p className="text-red-500">{errors.password.message}</p>
+          )}
           <select className="w-24" name="" id="">
             <option value="Select" disabled selected>
               Select One
@@ -22,6 +90,7 @@ const SignUp = () => {
           <div className=" mt-6">
             <button className="btn btn-primary w-full">Sign Up</button>
           </div>
+          {signUpError && <p className="text-red-600">{signUpError}</p>}
         </form>
         <div className="text-center">
           <small>Login easily with your facebook or google account</small>

@@ -1,29 +1,78 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Login = () => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+  const { signIn } = useContext(AuthContext);
+  const [loginError, setLoginError] = useState("");
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
+
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="card w-full max-w-sm shadow-2xl bg-base-100">
         <h4 className="border-bottom border-b-6 pb-2 w-16 mx-auto mt-6">
           Login
         </h4>
-        <form className="card-body mt-2">
-          <input type="email" placeholder="email" className="" />
-          <input type="password" placeholder="password" className="" />
+        <form onSubmit={handleSubmit(handleLogin)} className="card-body mt-2">
+          <input
+            {...register("email", {
+              required: "Email Address is required",
+            })}
+            type="email"
+            placeholder="email"
+            className=""
+          />
+          {errors.email && (
+            <p className="text-red-600">{errors.email?.message}</p>
+          )}
+          <input
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 6,
+                message: "Password must be 6 characters or longer",
+              },
+            })}
+            type="password"
+            placeholder="password"
+            className=""
+          />
+          {errors.password && (
+            <p className="text-red-600">{errors.password?.message}</p>
+          )}
           <p>forgot password?</p>
+
           <div className=" mt-6">
             <button className="btn btn-primary w-full">Login</button>
           </div>
+          {loginError && <p className="text-red-600">{loginError}</p>}
         </form>
         <div className="text-center">
           <small>Login easily with your google or Github account</small>
         </div>
         <div className="flex justify-items-center justify-center gap-x-4 p-3">
-          <button className="w-40 h-11 bg-red-500 text-white" type="button">
+          <button
+            // onClick={handleLoginWithGoogle}
+            className="w-40 h-11 bg-red-500 text-white"
+            type="button"
+          >
             Google
           </button>
-          <button className="w-40 h-11 bg-gray-500 text-white" type="button">
+          <button
+            // onClick={handleLoginWithGithub}
+            className="w-40 h-11 bg-gray-500 text-white"
+            type="button"
+          >
             Github
           </button>
         </div>

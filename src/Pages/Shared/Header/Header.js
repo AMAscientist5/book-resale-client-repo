@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../contexts/AuthProvider";
 import "./Header.css";
 
 const Header = () => {
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((err) => console.log(err));
+  };
   return (
     <div>
       <Navbar bg="light" expand="lg">
@@ -40,9 +48,19 @@ const Header = () => {
               <Link to="/">Home</Link>
               <Link to="/blog">Blog</Link>
               <Link to="/dashboard">Dashboard</Link>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Un</Link>
-              <Link to="/signout">Sign Out</Link>
+
+              {user?.uid ? (
+                <>
+                  <Link onClick={handleLogOut} to="/login">
+                    Sign Out
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/login">Login</Link>
+                  <Link to="/signup">Sign Un</Link>
+                </>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
