@@ -29,7 +29,11 @@ const Header = () => {
               />
             </svg>
           </label>
-          <Navbar.Brand href="#home">Aradun-Book-Resale</Navbar.Brand>
+          <Navbar.Brand>
+            <Link className="logo" to="/">
+              Aradun-Book-Resale
+            </Link>
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto custom-menu">
@@ -37,13 +41,12 @@ const Header = () => {
               <Link to="/blog">Blog</Link>
               <Link to="/dashboard">Dashboard</Link>
               <Link to="/login">Login</Link>
-              <Link to="/login">Sign In</Link>
-              <Link to="/signup">Sign Out</Link>
+              <Link to="/signup">Sign Un</Link>
+              <Link to="/signout">Sign Out</Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      ;
     </div>
   );
 };

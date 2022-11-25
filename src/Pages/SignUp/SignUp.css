@@ -1,0 +1,19 @@
+/* form input:focus {
+  margin: 0;
+  border: 0;
+  background-color: green;
+} */
+/* 
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+form input {
+  border: 0;
+  width: 100%;
+  border-bottom: gray solid 2px;
+  border-radius: 0%;
+  padding: 10px;
+}

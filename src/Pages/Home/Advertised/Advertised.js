@@ -1,9 +1,10 @@
 import React from "react";
+import banner3 from "../../../Asset/banner/banner3.webp";
 
 const Advertised = () => {
   return (
     <div>
-      <h2>I am advertised</h2>
+      <img src={banner3} alt="" />
     </div>
   );
 };

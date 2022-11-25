@@ -1,9 +1,9 @@
 import React from "react";
-
+import banner2 from "../../../Asset/banner/banner2.jpg";
 const AllBooks = () => {
   return (
     <div>
-      <h2>I am all books</h2>
+      <img src={banner2} alt="" />
     </div>
   );
 };
