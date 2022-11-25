@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
-import { GoogleAuthProvider, GithubAuthProvider } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Login = () => {
   const {
@@ -17,7 +17,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const googleProvider = new GoogleAuthProvider();
-  const githubProvider = new GithubAuthProvider();
 
   const from = location.state?.from?.pathname || "/";
 
@@ -45,9 +44,8 @@ const Login = () => {
       })
       .catch((error) => console.error(error));
   };
-
   const handleLoginWithGithub = () => {
-    providerLogin(githubProvider)
+    providerLogin(googleProvider)
       .then((result) => {
         const user = result.user;
         console.log(user);

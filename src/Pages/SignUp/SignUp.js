@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
+import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 
 const SignUp = () => {
   const {
@@ -12,8 +13,11 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const { createUser } = useContext(AuthContext);
+  const { createUser, providerLogin } = useContext(AuthContext);
   const [signUpError, setSignUPError] = useState("");
+
+  const googleProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
 
   const navigate = useNavigate();
 
@@ -30,6 +34,26 @@ const SignUp = () => {
         console.log(error);
         setSignUPError(error.message);
       });
+  };
+
+  const handleLoginWithGoogle = () => {
+    providerLogin(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        navigate("/");
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const handleLoginWithGithub = () => {
+    providerLogin(githubProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        navigate("/");
+      })
+      .catch((error) => console.error(error));
   };
 
   return (
@@ -96,10 +120,18 @@ const SignUp = () => {
           <small>Login easily with your facebook or google account</small>
         </div>
         <div className="flex justify-items-center justify-center gap-x-4 p-3">
-          <button className="w-40 h-11 bg-red-500 text-white" type="button">
+          <button
+            onClick={handleLoginWithGoogle}
+            className="w-40 h-11 bg-red-500 text-white"
+            type="button"
+          >
             Google
           </button>
-          <button className="w-40 h-11 bg-gray-500 text-white" type="button">
+          <button
+            onClick={handleLoginWithGithub}
+            className="w-40 h-11 bg-gray-500 text-white"
+            type="button"
+          >
             Github
           </button>
         </div>
