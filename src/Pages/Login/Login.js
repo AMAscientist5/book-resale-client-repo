@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Login = () => {
   const {
@@ -9,11 +10,13 @@ const Login = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const { signIn } = useContext(AuthContext);
+  const { signIn, providerLogin } = useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  const googleProvider = new GoogleAuthProvider();
 
   const from = location.state?.from?.pathname || "/";
 
@@ -30,6 +33,16 @@ const Login = () => {
         console.log(error.message);
         setLoginError(error.message);
       });
+  };
+
+  const handleLoginWithGoogle = () => {
+    providerLogin(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => console.error(error));
   };
 
   return (
@@ -77,7 +90,7 @@ const Login = () => {
         </div>
         <div className="flex justify-items-center justify-center gap-x-4 p-3">
           <button
-            // onClick={handleLoginWithGoogle}
+            onClick={handleLoginWithGoogle}
             className="w-40 h-11 bg-red-500 text-white"
             type="button"
           >
