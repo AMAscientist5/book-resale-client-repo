@@ -4,7 +4,7 @@ import Main from "../../Layout/Main";
 import Blog from "../../Pages/Blog/Blog";
 import Dashboard from "../../Pages/Dashboard/Dashboard";
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
-import CategorySingle from "../../Pages/Home/Categories/Category/CategorySingle";
+import CategorySingle from "../../Pages/Home/Categories/CategorySingle/CategorySingle/CategorySingle";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import SignUp from "../../Pages/SignUp/SignUp";
