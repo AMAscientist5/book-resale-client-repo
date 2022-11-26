@@ -1,6 +1,7 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 import { Checkmark } from "react-checkmark";
+import BookingModal from "../../BookingModal/BookingModal";
 const CategorySingle = () => {
   const categoryType = useLoaderData();
 
@@ -50,10 +51,14 @@ const CategorySingle = () => {
                 </p>
               </div>
               <button className="btn btn-outline-primary">Book Now</button>
+              <label htmlFor="my-modal-3" className="btn">
+                open modal
+              </label>
             </div>
           </div>
         ))}
       </div>
+      <BookingModal></BookingModal>
     </div>
   );
 };
