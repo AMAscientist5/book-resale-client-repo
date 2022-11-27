@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
+
 import { useLoaderData } from "react-router-dom";
 import { Checkmark } from "react-checkmark";
 import BookingModal from "../../BookingModal/BookingModal";
+
 const CategorySingle = () => {
   const categoryType = useLoaderData();
+  const [bookingItem, setBookingItem] = useState([]);
+
+  console.log(bookingItem);
 
   return (
     <div>
       <div className="text-center mt-5">
-        <h2>Category Collection</h2>
+        <h2 className="text-3xl font-bold">Category Collection</h2>
       </div>
       <div className=" lg:flex-wrap lg:flex justify-center align-items-center p-10 lg:p-10">
         {categoryType.map((category) => (
@@ -16,7 +21,7 @@ const CategorySingle = () => {
             <div className="lg:w-64 text-center ml-4">
               <img className="w-75" src={category?.picture} alt="" />
             </div>
-            <div>
+            <div className="mt-5 ml-10">
               <p className="mb-1">
                 Book Name:{" "}
                 <span className="ml-1 text-1xl font-bold">
@@ -50,15 +55,19 @@ const CategorySingle = () => {
                   <Checkmark className="mt-4 ml-8" size="20px" color="blue" />
                 </p>
               </div>
-              <button className="btn btn-outline-primary">Book Now</button>
-              <label htmlFor="my-modal-3" className="btn">
-                open modal
+
+              <label
+                htmlFor="my-modal-3"
+                className="btn btn-outline btn-primary"
+                onClick={() => setBookingItem(category)}
+              >
+                Book Now
               </label>
             </div>
           </div>
         ))}
       </div>
-      <BookingModal></BookingModal>
+      <BookingModal bookingItem={bookingItem}></BookingModal>
     </div>
   );
 };

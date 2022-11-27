@@ -8,6 +8,7 @@ import CategorySingle from "../../Pages/Home/Categories/CategorySingle/CategoryS
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import SignUp from "../../Pages/SignUp/SignUp";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -32,9 +33,13 @@ const router = createBrowserRouter([
       },
       {
         path: "/category/:id",
-        element: <CategorySingle></CategorySingle>,
+        element: (
+          <PrivateRoute>
+            <CategorySingle></CategorySingle>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/category?category_id=${params.id}`),
+          fetch(`http://localhost:5000/categoryType?category_id=${params.id}`),
       },
     ],
   },

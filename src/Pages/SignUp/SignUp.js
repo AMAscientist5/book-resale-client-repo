@@ -13,7 +13,7 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const { createUser, providerLogin } = useContext(AuthContext);
+  const { createUser, providerLogin, updateUser } = useContext(AuthContext);
   const [signUpError, setSignUPError] = useState("");
 
   const googleProvider = new GoogleAuthProvider();
@@ -21,14 +21,23 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
+  //----
   const handleSignUp = (data) => {
+    console.log(data);
     setSignUPError("");
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
         console.log(user);
-        toast("User Created Successfully.");
-        navigate("/");
+        const userInfo = {
+          displayName: data.name,
+        };
+        updateUser(userInfo)
+          .then(() => {
+            console.log(data.name, data.email, "ami");
+            saveUser(data.name, data.email, data.accountType);
+          })
+          .catch((err) => console.log(err));
       })
       .catch((error) => {
         console.log(error);
@@ -36,22 +45,65 @@ const SignUp = () => {
       });
   };
 
-  const handleLoginWithGoogle = () => {
+  const saveUser = (name, email, accountType = "seller") => {
+    console.log("savefunction", name, email, accountType);
+    const user = { name, email, accountType };
+    console.log(user);
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "ami confirmation");
+        toast.success("User Created Successfully.");
+        navigate("/");
+      });
+  };
+
+  const handleLoginWithGoogle = (event) => {
+    console.log(event);
     providerLogin(googleProvider)
       .then((result) => {
         const user = result.user;
-        console.log(user);
-        navigate("/");
+        console.log(user, "third");
+        // toast.success("User Created Successfully.");
+        if (user?.uid) {
+          saveUser(user?.displayName, user?.email);
+        }
       })
       .catch((error) => console.error(error));
   };
+
+  // const saveSocilaUser = (name, email) => {
+  //   const user = { name, email, accountType };
+  //   fetch("http://localhost:5000/users", {
+  //     method: "POST",
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //     body: JSON.stringify(user),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       toast.success("User Created Successfully.");
+  //       navigate("/");
+  //     });
+  // };
 
   const handleLoginWithGithub = () => {
     providerLogin(githubProvider)
       .then((result) => {
         const user = result.user;
-        console.log(user);
-        navigate("/");
+        console.log(user, "four");
+        // toast.success("User Created Successfully.");
+        if (user?.uid) {
+          saveUser(user?.displayName, user?.email);
+        }
       })
       .catch((error) => console.error(error));
   };
@@ -104,15 +156,19 @@ const SignUp = () => {
           {errors.password && (
             <p className="text-red-500">{errors.password.message}</p>
           )}
-          <select className="w-24" name="" id="">
-            <option value="Select" disabled selected>
-              Select One
-            </option>
+
+          <select className="w-24" {...register("accountType")}>
+            <option value="">Select...</option>
             <option value="buyer">Buyer</option>
             <option value="seller">Seller</option>
           </select>
           <div className=" mt-6">
-            <button className="btn btn-primary w-full">Sign Up</button>
+            {/* <button className="btn btn-primary w-full">Sign Up</button> */}
+            <input
+              className="btn btn-primary w-full"
+              value="Sign Up"
+              type="submit"
+            />
           </div>
           {signUpError && <p className="text-red-600">{signUpError}</p>}
         </form>
@@ -137,7 +193,6 @@ const SignUp = () => {
         </div>
         <div className="text-center my-3">
           <i className="mr-1">Already have an account?</i>
-
           <Link to="/login">Login Now!</Link>
         </div>
       </div>
