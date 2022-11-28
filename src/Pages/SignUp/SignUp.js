@@ -13,15 +13,13 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const { createUser, providerLogin, updateUser } = useContext(AuthContext);
+  const { createUser, updateUser, providerLogin } = useContext(AuthContext);
   const [signUpError, setSignUPError] = useState("");
 
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
 
   const navigate = useNavigate();
-
-  //----
   const handleSignUp = (data) => {
     console.log(data);
     setSignUPError("");
@@ -35,7 +33,7 @@ const SignUp = () => {
         updateUser(userInfo)
           .then(() => {
             console.log(data.name, data.email, "ami");
-            saveUser(data.name, data.email, data.accountType);
+            saveUser(data.name, data.email, data.role);
           })
           .catch((err) => console.log(err));
       })
@@ -45,9 +43,9 @@ const SignUp = () => {
       });
   };
 
-  const saveUser = (name, email, accountType = "seller") => {
-    console.log("savefunction", name, email, accountType);
-    const user = { name, email, accountType };
+  const saveUser = (name, email, role) => {
+    console.log("savefunction", name, email, role);
+    const user = { name, email, role: "buyer" };
     console.log(user);
     fetch("http://localhost:5000/users", {
       method: "POST",
@@ -77,23 +75,6 @@ const SignUp = () => {
       })
       .catch((error) => console.error(error));
   };
-
-  // const saveSocilaUser = (name, email) => {
-  //   const user = { name, email, accountType };
-  //   fetch("http://localhost:5000/users", {
-  //     method: "POST",
-  //     headers: {
-  //       "content-type": "application/json",
-  //     },
-  //     body: JSON.stringify(user),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       toast.success("User Created Successfully.");
-  //       navigate("/");
-  //     });
-  // };
 
   const handleLoginWithGithub = () => {
     providerLogin(githubProvider)
@@ -157,7 +138,7 @@ const SignUp = () => {
             <p className="text-red-500">{errors.password.message}</p>
           )}
 
-          <select className="w-24" {...register("accountType")}>
+          <select className="w-24" {...register("role")}>
             <option value="">Select...</option>
             <option value="buyer">Buyer</option>
             <option value="seller">Seller</option>

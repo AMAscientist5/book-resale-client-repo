@@ -2,7 +2,14 @@ import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../../Layout/DashboardLayout";
 import Main from "../../Layout/Main";
 import Blog from "../../Pages/Blog/Blog";
-import Dashboard from "../../Pages/Dashboard/Dashboard";
+import AllBuyers from "../../Pages/Dashboard/Admin/AllBuyers/AllBuyers";
+import AllSellers from "../../Pages/Dashboard/Admin/AllSellers/AllSellers";
+import ReportedItem from "../../Pages/Dashboard/Admin/ReportedItem/ReportedItem";
+import MyOrders from "../../Pages/Dashboard/Buyers/MyOrders/MyOrders";
+import DashboardHome from "../../Pages/Dashboard/DashboardHome/DashboardHome";
+import AddProducts from "../../Pages/Dashboard/Sellers/AddProducts/AddProducts";
+// import MyBuyers from "../../Pages/Dashboard/Sellers/MyBuyers/MyBuyers";
+import MyProducts from "../../Pages/Dashboard/Sellers/MyProducts/MyProducts";
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import CategorySingle from "../../Pages/Home/Categories/CategorySingle/CategorySingle/CategorySingle";
 import Home from "../../Pages/Home/Home/Home";
@@ -49,7 +56,36 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: <Dashboard></Dashboard>,
+        element: <DashboardHome></DashboardHome>,
+      },
+      {
+        path: "/dashboard/myorders",
+        element: <MyOrders></MyOrders>,
+      },
+      {
+        path: "/dashboard/addproducts",
+        element: <AddProducts></AddProducts>,
+      },
+      {
+        path: "/dashboard/myproducts",
+        element: <MyProducts></MyProducts>,
+      },
+      {
+        path: "/dashboard/mybuyers",
+        element: <MyProducts></MyProducts>,
+      },
+
+      {
+        path: "/dashboard/allsellers",
+        element: <AllSellers></AllSellers>,
+      },
+      {
+        path: "/dashboard/allbuyers",
+        element: <AllBuyers></AllBuyers>,
+      },
+      {
+        path: "/dashboard/reporteditem",
+        element: <ReportedItem></ReportedItem>,
       },
     ],
   },

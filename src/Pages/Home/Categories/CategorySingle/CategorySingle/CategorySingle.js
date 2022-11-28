@@ -15,9 +15,9 @@ const CategorySingle = () => {
       <div className="text-center mt-5">
         <h2 className="text-3xl font-bold">Category Collection</h2>
       </div>
-      <div className=" lg:flex-wrap lg:flex justify-center align-items-center p-10 lg:p-10">
+      <div className="lg:flex-wrap lg:flex justify-center align-items-center p-10 lg:p-10">
         {categoryType.map((category) => (
-          <div className="md:flex lg:flex mx-6 mb-20">
+          <div key={category._Id} className="md:flex lg:flex mx-6 mb-20">
             <div className="lg:w-64 text-center ml-4">
               <img className="w-75" src={category?.picture} alt="" />
             </div>
