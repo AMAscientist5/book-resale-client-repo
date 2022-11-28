@@ -20,7 +20,7 @@ const DashboardLayout = () => {
       <Header></Header>
       <div className="drawer drawer-mobile">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="bg-gray-500 drawer-content flex flex-col items-center justify-center">
+        <div className="bg-gray-200 drawer-content flex flex-col items-center justify-center">
           <Outlet></Outlet>
         </div>
         <div className="drawer-side">
