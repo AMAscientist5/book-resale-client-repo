@@ -21,7 +21,9 @@ const AllSellers = () => {
     queryKey: ["seller"],
     queryFn: async () => {
       try {
-        const res = await fetch(`http://localhost:5000/usersType?role=seller`);
+        const res = await fetch(
+          `https://aradun-book-resale-server.vercel.app/usersType?role=seller`
+        );
         const data = await res.json();
         return data;
       } catch (error) {}
@@ -30,12 +32,15 @@ const AllSellers = () => {
 
   const handleDeleteSellerAccount = (deletingSellerAccount) => {
     console.log(deletingSellerAccount);
-    fetch(`http://localhost:5000/users/${deletingSellerAccount._id}`, {
-      method: "DELETE",
-      // headers: {
-      //   authorization: `bearer ${localStorage.getItem("accessToken")}`,
-      // },
-    })
+    fetch(
+      `https://aradun-book-resale-server.vercel.app/users/${deletingSellerAccount._id}`,
+      {
+        method: "DELETE",
+        // headers: {
+        //   authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        // },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

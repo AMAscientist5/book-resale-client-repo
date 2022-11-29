@@ -24,7 +24,7 @@ const MyOrders = () => {
     queryFn: async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/bookingsOrder?email=${user?.email}`
+          `https://aradun-book-resale-server.vercel.app/bookingsOrder?email=${user?.email}`
         );
         const data = await res.json();
         return data;

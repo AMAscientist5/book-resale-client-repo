@@ -47,7 +47,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/categoryType?category_id=${params.id}`),
+          fetch(
+            `https://aradun-book-resale-server.vercel.app/categoryType?category_id=${params.id}`
+          ),
       },
     ],
   },

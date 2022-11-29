@@ -19,7 +19,9 @@ const AddProducts = () => {
   const { data: categories, isLoading } = useQuery({
     queryKey: ["Name"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/categoriesName");
+      const res = await fetch(
+        "https://aradun-book-resale-server.vercel.app/categoriesName"
+      );
       const data = await res.json();
       return data;
     },
@@ -52,7 +54,7 @@ const AddProducts = () => {
             image: imgData.data.url,
           };
 
-          fetch("http://localhost:5000/sellerProducts", {
+          fetch("https://aradun-book-resale-server.vercel.app/sellerProducts", {
             method: "POST",
             headers: {
               "content-type": "application/json",

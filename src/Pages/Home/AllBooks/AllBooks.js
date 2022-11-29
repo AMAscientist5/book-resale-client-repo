@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 const AllBooks = () => {
   const [allBooks, setAllBooks] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/category")
+    fetch("https://aradun-book-resale-server.vercel.app/category")
       .then((res) => res.json())
       .then((data) => setAllBooks(data));
   }, []);
