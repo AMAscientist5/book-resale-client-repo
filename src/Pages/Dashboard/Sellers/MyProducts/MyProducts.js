@@ -2,25 +2,25 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 
 import toast from "react-hot-toast";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../contexts/AuthProvider";
 import ConfirmationModal from "../../../Shared/ConfirmationModal/ConfirmationModal";
 import Loading from "../../../Shared/Loading/Loading";
 
 const MyProducts = () => {
-  const { adVertization } = useContext(AuthContext);
+  const { setAdvertized } = useContext(AuthContext);
   const [deletingSellerProduct, setDeletingSellerProduct] = useState(null);
   console.log(deletingSellerProduct);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const closeModal = () => {
     setDeletingSellerProduct(null);
   };
 
   const handleAdvertize = (sellerProduct) => {
-    adVertization(sellerProduct);
-    // navigate("/");
+    setAdvertized(sellerProduct);
+    navigate("/");
   };
 
   const {
@@ -98,11 +98,13 @@ const MyProducts = () => {
                 <td>{sellerProduct?.price}</td>
                 <td>{sellerProduct?.productStatus}</td>
                 {sellerProduct?.productStatus && (
-                  <td
-                    className="text-primary"
-                    onClick={() => handleAdvertize(sellerProduct)}
-                  >
-                    Add Run
+                  <td>
+                    <label
+                      className=" btn btn-sm btn-primary"
+                      onClick={() => handleAdvertize(sellerProduct)}
+                    >
+                      Add Run
+                    </label>
                   </td>
                 )}
                 <td>
