@@ -12,8 +12,8 @@ const CategorySingle = () => {
 
   return (
     <div>
-      <div className="text-center mt-5">
-        <h2 className="text-3xl font-bold">Category Collection</h2>
+      <div className="text-center mt-16">
+        <h2 className="text-4xl lg:text-5xl font-bold">Category Collection</h2>
       </div>
       <div className="lg:flex-wrap lg:flex justify-center align-items-center p-10 lg:p-10">
         {categoryType.map((category) => (

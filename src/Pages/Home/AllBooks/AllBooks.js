@@ -7,8 +7,8 @@ const AllBooks = () => {
       .then((data) => setAllBooks(data));
   }, []);
   return (
-    <div className="py-24 ">
-      <div className="text-center mb-4">
+    <div>
+      <div className="text-center lg:mt-12 lg:mb-8">
         <h2 className="text-5xl font-bold">All Book Cover</h2>
       </div>
       <div className="relative w-full lg:flex justify-center lg:gap-4 overflow-x-auto">

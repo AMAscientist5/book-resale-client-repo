@@ -12,7 +12,7 @@ const AddProducts = () => {
     formState: { errors },
   } = useForm();
 
-  // const imageHostKey = process.env.REACT_APP_Imgbb_key;
+  const imageHostKey = process.env.REACT_APP_Imgbb_key;
 
   const navigate = useNavigate();
 
@@ -26,47 +26,47 @@ const AddProducts = () => {
   });
 
   const handleAddDoctor = (data) => {
-    // console.log(data.image[0]);
-    // const image = data.image[0];
-    // const formData = new FormData();
-    // formData.append("image", image);
-    // const url = `https://api.imgbb.com/1/upload&key=${imageHostKey}`;
-    // fetch(url, {
-    //   method: "POST",
-    //   body: formData,
-    // })
-    //   .then((res) => res.json())
-    //   .then((imgData) => {
-    //     if (imgData.success) {
-    //       console.log(imgData.data.url);
-    //     }
-    //   });
-
-    const sellerProduct = {
-      name: data.name,
-      price: data.price,
-      condition: data.condition,
-      location: data.location,
-      phone: data.phone,
-      description: data.description,
-      purchased: data.purchased,
-      category: data.category,
-      // image: imgData.data.url,
-    };
-
-    fetch("http://localhost:5000/sellerProducts", {
+    console.log(data.image[0]);
+    const image = data.image[0];
+    const formData = new FormData();
+    formData.append("image", image);
+    const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+    fetch(url, {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-        // authorization: `bearer ${localStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify(sellerProduct),
+      body: formData,
     })
       .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-        toast.success(`${data.name} is added successfully`);
-        navigate("/dashboard/myproducts");
+      .then((imgData) => {
+        if (imgData.success) {
+          console.log(imgData.data.url);
+          const sellerProduct = {
+            name: data.name,
+            price: data.price,
+            condition: data.condition,
+            location: data.location,
+            phone: data.phone,
+            description: data.description,
+            purchased: data.purchased,
+            category: data.category,
+            productStatus: "available",
+            image: imgData.data.url,
+          };
+
+          fetch("http://localhost:5000/sellerProducts", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+              // authorization: `bearer ${localStorage.getItem("accessToken")}`,
+            },
+            body: JSON.stringify(sellerProduct),
+          })
+            .then((res) => res.json())
+            .then((result) => {
+              console.log(result);
+              toast.success(`${data.name} is added successfully`);
+              navigate("/dashboard/myproducts");
+            });
+        }
       });
   };
   if (isLoading) {
@@ -74,10 +74,10 @@ const AddProducts = () => {
   }
 
   return (
-    <div className="w-96 sm:mt-28 lg:mt-0 p-7">
-      <h2 className="text-4xl">Add A Product</h2>
+    <div>
+      <h2 className="text-4xl text-center mt-5">Add A Product</h2>
       <form onSubmit={handleSubmit(handleAddDoctor)}>
-        <div className="lg:flex gap-5">
+        <div className="lg:flex justify-center gap-5">
           <div>
             <div className="form-control w-full max-w-xs">
               <label className="label">
@@ -135,6 +135,21 @@ const AddProducts = () => {
               />
               {errors.purchased && (
                 <p className="text-red-500">{errors.purchased.message}</p>
+              )}
+            </div>
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Description</span>
+              </label>
+              <input
+                type="text"
+                {...register("description", {
+                  required: "description is Required",
+                })}
+                className="input input-bordered w-full max-w-xs"
+              />
+              {errors.description && (
+                <p className="text-red-500">{errors.description.message}</p>
               )}
             </div>
           </div>
@@ -202,28 +217,13 @@ const AddProducts = () => {
                 <p className="text-red-500">{errors.img.message}</p>
               )}
             </div>
+            <input
+              className="btn btn-primary w-full mt-4"
+              value="Add Product"
+              type="submit"
+            />
           </div>
         </div>
-        <div className="form-control w-full max-w-xs">
-          <label className="label">
-            <span className="label-text">Description</span>
-          </label>
-          <input
-            type="text"
-            {...register("description", {
-              required: "description is Required",
-            })}
-            className="input input-bordered w-full max-w-xs"
-          />
-          {errors.description && (
-            <p className="text-red-500">{errors.description.message}</p>
-          )}
-        </div>
-        <input
-          className="btn btn-primary w-full mt-4"
-          value="Add Product"
-          type="submit"
-        />
       </form>
     </div>
   );

@@ -4,12 +4,12 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <footer className="px-4 divide-y dark:bg-gray-800 dark:text-gray-100">
+    <footer className="px-4 divide-y border bg-black text-white mt-16">
       <div className="container flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
         <div className="lg:w-1/3">
           <Link
             rel="noopener noreferrer"
-            href="#"
+            to="/"
             className="flex justify-center space-x-3 lg:justify-start"
           >
             <div className="flex items-center justify-center w-12 h-12 rounded-full dark:bg-violet-400">
@@ -96,7 +96,7 @@ const Footer = () => {
             <div className="flex justify-start space-x-3">
               <Link
                 rel="noopener noreferrer"
-                href="#"
+                href="https://www.facebook.com/"
                 title="Facebook"
                 className="flex items-center p-1"
               >

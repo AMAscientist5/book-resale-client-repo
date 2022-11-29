@@ -1,0 +1,16 @@
+.customP p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.customP {
+  margin-bottom: 60px;
+  border-bottom: 2px solid black;
+}
+
+.link {
+  text-decoration: underline;
+  color: blue;
+  font-weight: 40px;
+  margin: 10px;
+}

@@ -6,33 +6,33 @@ import useAdmin from "../hooks/useAdmin/useAdmin";
 import Footer from "../Pages/Shared/Footer/Footer";
 import Header from "../Pages/Shared/Header/Header";
 import useSeller from "../hooks/useSeller/useSeller";
-// import useBuyer from "../hooks/useBuyer/useBuyer";
+import useBuyer from "../hooks/useBuyer/useBuyer";
 
 const DashboardLayout = () => {
   const { user } = useContext(AuthContext);
   console.log(user);
   const [isAdmin] = useAdmin(user?.email);
   const [isSeller] = useSeller(user?.email);
-  // const [isBuyer] = useBuyer(user?.email);
+  const [isBuyer] = useBuyer(user?.email);
 
   return (
     <div>
       <Header></Header>
       <div className="drawer drawer-mobile">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="bg-gray-200 drawer-content flex flex-col items-center justify-center">
+        <div className="bg-gray-200 drawer-content flex flex-col">
           <Outlet></Outlet>
         </div>
         <div className="drawer-side">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 bg-base-100 text-base-content">
-            {/* {isBuyer && ( */}
-            <>
-              <li className="custom-option">
-                <Link to="/dashboard/myorders">My orders</Link>
-              </li>
-            </>
-            {/* )} */}
+          <ul className="menu p-4 w-80 text-base-content">
+            {isBuyer && (
+              <>
+                <li className="custom-option">
+                  <Link to="/dashboard/myorders">My orders</Link>
+                </li>
+              </>
+            )}
             {isAdmin && (
               <>
                 <li>

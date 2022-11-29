@@ -1,16 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import toast from "react-hot-toast";
+// import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../../contexts/AuthProvider";
 import ConfirmationModal from "../../../Shared/ConfirmationModal/ConfirmationModal";
 import Loading from "../../../Shared/Loading/Loading";
 
 const MyProducts = () => {
+  const { adVertization } = useContext(AuthContext);
   const [deletingSellerProduct, setDeletingSellerProduct] = useState(null);
   console.log(deletingSellerProduct);
 
+  // const navigate = useNavigate();
+
   const closeModal = () => {
     setDeletingSellerProduct(null);
+  };
+
+  const handleAdvertize = (sellerProduct) => {
+    adVertization(sellerProduct);
+    // navigate("/");
   };
 
   const {
@@ -54,7 +64,7 @@ const MyProducts = () => {
 
   return (
     <div>
-      <h2 className="text-3xl">My Products: {sellerProducts?.length}</h2>
+      {/* <h2 className="text-3xl">My Products: {sellerProducts?.length}</h2> */}
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>
@@ -64,7 +74,7 @@ const MyProducts = () => {
               <th>Name</th>
               <th>Price</th>
               <th>Status</th>
-              <th>Ad</th>
+              <th>Advertized</th>
               <th>Delete</th>
             </tr>
           </thead>
@@ -81,8 +91,15 @@ const MyProducts = () => {
                 </td>
                 <td>{sellerProduct?.name}</td>
                 <td>{sellerProduct?.price}</td>
-                <td>Available</td>
-                <td>Ad Run</td>
+                <td>{sellerProduct?.productStatus}</td>
+                {sellerProduct?.productStatus && (
+                  <td
+                    className="text-primary"
+                    onClick={() => handleAdvertize(sellerProduct)}
+                  >
+                    Add Run
+                  </td>
+                )}
                 <td>
                   <label
                     onClick={() => setDeletingSellerProduct(sellerProduct)}

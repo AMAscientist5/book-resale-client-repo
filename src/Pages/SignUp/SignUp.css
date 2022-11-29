@@ -1,15 +1,3 @@
-/* form input:focus {
-  margin: 0;
-  border: 0;
-  background-color: green;
-} */
-/* 
-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
 form input {
   border: 0;
   width: 100%;

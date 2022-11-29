@@ -16,6 +16,14 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [advertized, setAdvertized] = useState(null);
+  console.log(advertized);
+
+  const adVertization = (advertizeItem) => {
+    console.log(advertizeItem);
+    setLoading(true);
+    return setAdvertized(advertizeItem);
+  };
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -59,6 +67,9 @@ const AuthProvider = ({ children }) => {
     logOut,
     user,
     loading,
+    advertized,
+    setAdvertized,
+    adVertization,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

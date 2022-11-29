@@ -43,9 +43,9 @@ const SignUp = () => {
       });
   };
 
-  const saveUser = (name, email, role) => {
+  const saveUser = (name, email, role = "buyer") => {
     console.log("savefunction", name, email, role);
-    const user = { name, email, role: "buyer" };
+    const user = { name, email, role };
     console.log(user);
     fetch("http://localhost:5000/users", {
       method: "POST",
@@ -90,12 +90,14 @@ const SignUp = () => {
   };
 
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <div className="hero lg:py-12 bg-stone-400">
       <div className="card w-full max-w-sm shadow-2xl bg-base-100">
-        <h4 className="border-bottom border-b-8 pb-2 w-24 mx-auto mt-6">
-          Sign Up
-        </h4>
-        <form onSubmit={handleSubmit(handleSignUp)} className="card-body mt-2">
+        <div className="text-center mb-1">
+          <h4 className="border-bottom border-b-8 pb-2 w-24 text-2xl font-bold mx-auto mt-6">
+            Sign Up
+          </h4>
+        </div>
+        <form onSubmit={handleSubmit(handleSignUp)} className="card-body py-1">
           <input
             {...register("name", {
               required: "Name is Required",
@@ -139,7 +141,6 @@ const SignUp = () => {
           )}
 
           <select className="w-24" {...register("role")}>
-            <option value="">Select...</option>
             <option value="buyer">Buyer</option>
             <option value="seller">Seller</option>
           </select>
@@ -154,19 +155,19 @@ const SignUp = () => {
           {signUpError && <p className="text-red-600">{signUpError}</p>}
         </form>
         <div className="text-center">
-          <small>Login easily with your facebook or google account</small>
+          <small>Create acoount with Google or Github account</small>
         </div>
         <div className="flex justify-items-center justify-center gap-x-4 p-3">
           <button
             onClick={handleLoginWithGoogle}
-            className="w-40 h-11 bg-red-500 text-white"
+            className="w-40 font-bold h-11 bg-red-500 text-white"
             type="button"
           >
             Google
           </button>
           <button
             onClick={handleLoginWithGithub}
-            className="w-40 h-11 bg-gray-500 text-white"
+            className="w-40 h-11 font-bold bg-gray-500 text-white"
             type="button"
           >
             Github
@@ -174,7 +175,9 @@ const SignUp = () => {
         </div>
         <div className="text-center my-3">
           <i className="mr-1">Already have an account?</i>
-          <Link to="/login">Login Now!</Link>
+          <Link className="text-primary font-bold" to="/login">
+            Login Now!
+          </Link>
         </div>
       </div>
     </div>

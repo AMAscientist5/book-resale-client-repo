@@ -7,6 +7,7 @@ import Loading from "../../../Shared/Loading/Loading";
 
 const AllBuyers = () => {
   const [deletingBuyerAccount, setDeletingBuyerAccount] = useState(null);
+  const [veryfy, setVeryfy] = useState(false);
   console.log(deletingBuyerAccount);
 
   const closeModal = () => {
@@ -54,7 +55,6 @@ const AllBuyers = () => {
 
   return (
     <div>
-      <h2 className="text-3xl">All Buyer: {buyers?.length}</h2>
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>
@@ -72,7 +72,13 @@ const AllBuyers = () => {
                 <th>{i + 1}</th>
                 <td>{buyer?.name}</td>
                 <td>{buyer?.email}</td>
-                <td>Varified</td>
+                <td>
+                  {veryfy ? (
+                    <button onClick={() => setVeryfy(!veryfy)}>Verify</button>
+                  ) : (
+                    <button onClick={() => setVeryfy(!veryfy)}>Verified</button>
+                  )}
+                </td>
                 <td>
                   <label
                     onClick={() => setDeletingBuyerAccount(buyer)}
