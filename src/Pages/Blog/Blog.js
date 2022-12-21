@@ -6,7 +6,7 @@ import "./Blog.css";
 
 const Blog = () => {
   return (
-    <div className="w-75 mx-auto bg-stone-200">
+    <div className="w-75 mx-auto bg-red-50">
       <div className="w-9/12 mx-auto">
         <div className="text-center py-12">
           <h1 className="text-5xl font-bold">The Blog</h1>

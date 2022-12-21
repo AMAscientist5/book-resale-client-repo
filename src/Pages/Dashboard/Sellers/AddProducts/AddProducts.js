@@ -42,7 +42,7 @@ const AddProducts = () => {
         if (imgData.success) {
           console.log(imgData.data.url);
           const sellerProduct = {
-            name: data.name,
+            name: data.name, 
             price: data.price,
             condition: data.condition,
             location: data.location,
