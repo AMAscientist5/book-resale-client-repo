@@ -2,6 +2,7 @@ import React from "react";
 import bpic1 from "../../Asset/blogPic/frame1.JPG";
 import bpic2 from "../../Asset/blogPic/frame2.JPG";
 import bpic3 from "../../Asset/blogPic/frame3.JPG";
+import react from "../../Asset/blogPic/react.png";
 import "./Blog.css";
 
 const Blog = () => {
@@ -13,6 +14,7 @@ const Blog = () => {
         </div>
 
         <div>
+          <img className="display-block mx-auto" src={react} alt="" />
           <h2 className="text-3xl font-bold my-5">
             What are the different ways to manage a state in a React
             application?

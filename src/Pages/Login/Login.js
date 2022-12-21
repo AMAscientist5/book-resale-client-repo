@@ -55,7 +55,7 @@ const Login = () => {
   };
 
   return (
-    <div className="hero bg-stone-400 lg:py-12">
+    <div className="hero bg-violet-200 lg:py-12">
       <div className="card w-full max-w-sm shadow-2xl bg-base-100">
         <div className="text-center mb-1">
           <h4 className="border-bottom border-b-8 pb-2 w-24 text-2xl font-bold mx-auto mt-6">
